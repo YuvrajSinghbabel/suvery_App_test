@@ -1,0 +1,20 @@
+  #toolbox {
+    width: 200px;
+    float: left;
+  }
+
+  #survey-container {
+    width: 600px;
+    height: 400px;
+    border: 1px solid #ccc;
+    position: relative;
+    margin-left: 220px;
+  }
+
+  .component {
+    padding: 5px;
+    border: 1px solid #000;
+    cursor: move;
+    background-color: #fff;
+    z-index: 100; /* Ensures components stay on top while dragging */
+  }

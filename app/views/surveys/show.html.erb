@@ -1,0 +1,28 @@
+<h1>Survey: <%= @survey.name %></h1>
+<p><%= @survey.description %></p>
+
+<h2>Components:</h2>
+
+<div id="survey-container" style="position: relative; width: 600px; height: 400px; border: 1px solid #ccc;">
+  <% @survey.components.each do |component| %>
+    <div class="component" 
+      style="position: absolute; left: <%= component.x_coordinate %>px; top: <%= component.y_coordinate %>px;" 
+      data-id="<%= component.id %>" data-type="<%= component.component_type %>">
+     
+     <% if component.component_type == 'label' %>
+       <span><%= component.content %></span>
+     <% elsif component.component_type == 'input' %>
+       <input type="text" value="<%= component.content %>" readonly>
+     <% end %>
+   </div>
+ <% end %>
+</div>
+
+<style>
+ .component {
+   padding: 5px;
+   border: 1px solid #000;
+   background-color: #fff;
+   z-index: 100;
+ }
+</style>

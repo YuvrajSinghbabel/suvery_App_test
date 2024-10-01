@@ -1,0 +1,30 @@
+<h1>Edit Survey: <%= @survey.name %></h1>
+<%= button_to "Go Back", root_path, method: :get %>
+<div id="toolbox">
+  <h2>Toolbox</h2>
+  <div class="draggable" draggable="true" ondragstart="drag(event)" data-type="label">Add Label</div>
+  <div class="draggable" draggable="true" ondragstart="drag(event)" data-type="input">Add Input</div>
+</div>
+
+<%= form_with model: @survey, url: survey_path(@survey), method: :patch, id: 'survey-form' do %>
+  <div id="survey-container" data-survey-id="<%= @survey.id %>" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <% @components.each do |component| %>
+      <div class="component" style="position: absolute; left: <%= component.x_coordinate %>px; top: <%= component.y_coordinate %>px;" 
+       data-id="<%= component.id %>" data-type="<%= component.component_type %>" 
+       contenteditable="<%= component.component_type == 'label' ? 'true' : 'false' %>" 
+       draggable="true" ondragstart="dragComponent(event)">
+       
+       <% if component.component_type == 'label' %>
+         <span><%= component.content %></span>
+       <% else %>
+         <input type="text" value="<%= component.content %>">
+       <% end %>
+     </div>
+   <% end %>
+ </div>
+
+  <button type="submit" id="save-survey">Save Survey</button>
+<% end %>
+
+<%= stylesheet_link_tag 'survey', media: 'all' %>
+<%= javascript_include_tag "survey" %>
